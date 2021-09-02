@@ -1,11 +1,4 @@
 {
-  "expo": {
-    "name": "frontend",
-    "slug": "frontend",
-    "version": "1.0.0",
-    "assetBundlePatterns": [
-      "**/*"
-    ]
-  },
-  "name": "frontend"
+  "name": "SpotTag",
+  "displayName": "SpotTag"
 }
