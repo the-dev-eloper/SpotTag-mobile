@@ -14,6 +14,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 var { height, width } = Dimensions.get('window');
 import navBarStyles from '../../styles/navbar';
+import data from '../../containers/data';
 
 class LanguageItemsPane extends Component {
 
@@ -21,14 +22,7 @@ class LanguageItemsPane extends Component {
         super(props);
 
         this.state = {
-            data: [
-                { key: "1", name: "JavaScript", "photo": require('../../assets/JS.png') },
-                { key: "2", name: "Python", "photo": require('../../assets/JS.png') },
-                { key: "3", name: "HTML", "photo": require('../../assets/JS.png') },
-                { key: "4", name: "TypeScript", "photo": require('../../assets/JS.png') },
-                { key: "5", name: "CSS", "photo": require('../../assets/JS.png') },
-                { key: "6", name: "Dart", "photo": require('../../assets/JS.png') },
-            ]
+           
         }
     }
 
@@ -73,7 +67,7 @@ class LanguageItemsPane extends Component {
         let fList = (
             <FlatList
                 style={{ flex:1 }}
-                data={this.state.data}
+                data={data.languages}
                 renderItem={({ item }) => <Item item={item}/>}
                 keyExtractor={item => item.email}
             />
