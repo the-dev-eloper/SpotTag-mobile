@@ -89,7 +89,7 @@ class BugItemsPane extends Component {
                                 style={{
                                     fontWeight:"bold",
                                     fontSize: 20,
-                                    color: "#FFFFFF"
+                                    color: "#000000"
                                 }}
                             >
                                 {item.name}
@@ -100,9 +100,9 @@ class BugItemsPane extends Component {
 
                             <Text
                                 style={{
-                                    fontWeight:"bold",
+                                    // fontWeight:"bold",
                                     fontSize: 15,
-                                    color: "#FFFFFF"
+                                    color: "#000000"
                                 }}
                             >
 
@@ -142,7 +142,7 @@ const styleTab = StyleSheet.create({
     mainWrap: {
         flex: 1,
         height: '100%',
-        backgroundColor: '#F7F7F7',
+        backgroundColor: '#E7E7E7',
     },
     headerWrap: {
         flexDirection: 'row',
@@ -150,21 +150,20 @@ const styleTab = StyleSheet.create({
     },
     headText: {
         fontWeight: 'bold',
-        fontSize: 18,
+        fontSize: 24,
         lineHeight: 22,
-        color: '#25282B',
+        color: '#000000',
         marginTop: height * 0.015,
         marginStart: width * 0.1
     },
     listStyle: {
         flex: 1,
-        backgroundColor: '#F7F7F7',
         marginTop: 20
     },
     listItem:{
         margin: 10,
         padding: 10,
-        backgroundColor: "#0000FF",
+        backgroundColor: "#FBF9F8",
         width: "90%",
         height: height * 0.2,
         alignSelf: "center",
