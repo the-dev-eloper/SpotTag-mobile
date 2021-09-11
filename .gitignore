@@ -58,4 +58,6 @@ jest.js
 ios/**/*.plist
 ios/**/*.log
 ios/Index
+
+# Backend
 backend/.env
