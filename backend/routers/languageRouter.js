@@ -39,6 +39,26 @@ languageRouter.post(`/`, async (req, res) => {
     }
 });
 
+languageRouter.put('/:id', async (req, res) => {
+    const updatedLanguage = await Language.findByIdAndUpdate(
+        req.params.id,
+        {
+            name: req.body.name,
+            image: req.body.image,
+            developer: req.body.developer,
+            stableRelease: req.body.stableRelease,
+            firstAppeared: req.body.firstAppeared,
+            bugList: req.body.bugList
+        }
+    );
+
+    if(!updatedLanguage) {
+        return res.status(400).send('Language not Found!')
+    }
+
+    res.send(updatedLanguage);
+})
+
 languageRouter.delete('/:id', (req, res) => {
 
     Language.findByIdAndRemove(req.params.id)
