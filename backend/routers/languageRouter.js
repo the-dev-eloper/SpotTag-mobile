@@ -39,4 +39,20 @@ languageRouter.post(`/`, async (req, res) => {
     }
 });
 
+languageRouter.delete('/:id', (req, res) => {
+
+    Language.findByIdAndRemove(req.params.id)
+        .then((deletedLanguage) => {
+
+            if(deletedLanguage) {
+                return res.status(201).json({ success: true, message: 'Deleted Successfully' })
+            } else {
+                return res.status(404).json({ success: false, message: 'Language not found' })
+            }
+        })
+        .catch((err) => {
+            return res.status(400).json({ success: false, error: err })
+        })
+})
+
 module.exports = languageRouter;
