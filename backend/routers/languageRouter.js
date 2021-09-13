@@ -10,6 +10,12 @@ languageRouter.get(`/`, async (req, res) => {
     res.send(languageList);
 });
 
+languageRouter.get(`/:id`, async (req, res) => {
+
+    const languageList = await Language.findById(req.params.id);
+    res.send(languageList);
+});
+
 languageRouter.post(`/`, async (req, res) => {
 
     const language = new Language({
