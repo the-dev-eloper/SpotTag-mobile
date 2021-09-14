@@ -1,6 +1,8 @@
 const express = require('express');
 const { User } = require('../models/userModel');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+require('dotenv/config');
 
 const userRouter = express.Router();
 
@@ -63,6 +65,28 @@ userRouter.put(`/:id`, async (req, res) => {
         res.status(200).json(updatedUser);
     } else {
         res.status(404).json({ success: false, message: 'User not Found!' })
+    }
+});
+
+userRouter.post(`/login`, async (req, res) => {
+
+    const user = await User.findOne({ email: req.body.email });
+    const secret = process.env.secret;
+
+    if(!user) {
+        return res.status(400).send('User not Found!');
+    }
+
+    if(user && bcrypt.compareSync(req.body.password, user.passwordHash)) {
+
+        const token = jwt.sign(
+            { userId: user.id },
+            secret,
+            { expiresIn: '1d' }
+        );
+        res.status(200).send({ user: user.email, token: token });
+    } else {
+        return res.status(400).send('Invalid Password!');
     }
 });
 
