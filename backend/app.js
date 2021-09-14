@@ -12,18 +12,20 @@ app.use(cors());
 app.options('*', cors());
 
 const languageRouter = require('./routers/languageRouter');
+const userRouter = require('./routers/userRouter');
 
 // Middleware
 app.use(express.json());
 app.use(morgan('tiny'));
 
-app.use(`${api}/languages`, languageRouter)
+app.use(`${api}/languages`, languageRouter);
+app.use(`${api}/users`, userRouter);
 
 app.get('/', (req, res) => {
     res.send('Server is running');
 });
 
-mongoose.connect('mongodb://localhost/spottag-mobile')
+mongoose.connect(process.env.MONGODB_URL)
     .then(() => {
         console.log('Database connection is ready..');
     })
