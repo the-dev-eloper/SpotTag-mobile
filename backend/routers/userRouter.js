@@ -41,4 +41,28 @@ userRouter.post(`/`, async (req, res) => {
     }
 });
 
+userRouter.put(`/:id`, async (req, res) => {
+    const updatedUser = await User.findByIdAndUpdate(
+        req.params.id,
+        {
+            name: req.body.name,
+            email: req.body.email,
+            passwordHash: req.body.passwordHash,
+            phone: req.body.phone,
+            isAdmin: req.body.isAdmin,
+            city: req.body.city,
+            country: req.body.country,
+        },
+        {
+            new: true
+        }
+    );
+
+    if(updatedUser) {
+        res.status(200).json(updatedUser);
+    } else {
+        res.status(404).json({ success: false, message: 'User not Found!' })
+    }
+});
+
 module.exports = userRouter;
