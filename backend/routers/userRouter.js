@@ -5,12 +5,12 @@ const bcrypt = require('bcryptjs');
 const userRouter = express.Router();
 
 userRouter.get(`/`, async (req, res) => {
-    const userList = await User.find({});
+    const userList = await User.find().select('-passwordHash');
     res.send(userList);
 });
 
 userRouter.get(`/:id`, async (req, res) => {
-    const user = await User.findById(req.params.id);
+    const user = await User.findById(req.params.id).select('-passwordHash');
 
     if(user) {
         res.status(200).json(user);
