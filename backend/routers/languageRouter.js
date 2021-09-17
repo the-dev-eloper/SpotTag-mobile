@@ -73,6 +73,17 @@ languageRouter.delete('/:id', (req, res) => {
         .catch((err) => {
             return res.status(400).json({ success: false, error: err })
         })
-})
+});
+
+languageRouter.get(`/get/count`, async (req, res) => {
+    const languageCount = await Language.countDocuments({});
+
+    if (!languageCount) {
+        res.status(500).json({ success: false });
+    }
+    res.send({
+        languageCount: languageCount
+    });
+});
 
 module.exports = languageRouter;

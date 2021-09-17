@@ -1,8 +1,7 @@
-const express = require('express');
 const { User } = require('../models/userModel');
+const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-require('dotenv/config');
 
 const userRouter = express.Router();
 
@@ -126,6 +125,17 @@ userRouter.post(`/register`, async (req, res) => {
     return res.status(400).send('the user cannot be created!')
 
     res.send(user);
+});
+
+userRouter.get(`/get/count`, async (req, res) =>{
+    const userCount = await User.countDocuments({});
+
+    if(!userCount) {
+        res.status(500).json({success: false})
+    } 
+    res.send({
+        userCount: userCount
+    });
 })
 
 module.exports = userRouter;

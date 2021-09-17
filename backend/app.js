@@ -13,23 +13,25 @@ const api = process.env.API_URL;
 app.use(cors());
 app.options('*', cors());
 
-const languageRouter = require('./routers/languageRouter');
-const userRouter = require('./routers/userRouter');
-
 // Middleware
 app.use(express.json());
 app.use(morgan('tiny'));
-app.use(authJWT());
+// app.use(authJWT());
 app.use(errorHandler);
+
+// Routes
+const languageRouter = require('./routers/languageRouter');
+const userRouter = require('./routers/userRouter');
 
 app.use(`${api}/languages`, languageRouter);
 app.use(`${api}/users`, userRouter);
 
-app.get('/', (req, res) => {
-    res.send('Server is running');
-});
-
-mongoose.connect(process.env.MONGODB_URL)
+//Database
+mongoose.connect(process.env.MONGODB_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    dbName: 'spottag-mobile'
+})
     .then(() => {
         console.log('Database connection is ready..');
     })
@@ -37,6 +39,7 @@ mongoose.connect(process.env.MONGODB_URL)
         console.log(err);
     })
 
+// Server
 app.listen('3000', () => {
     console.log("Server is running at http://localhost:3000/");
 });
