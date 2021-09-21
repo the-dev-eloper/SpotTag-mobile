@@ -1,8 +1,21 @@
 
 const express = require('express');
+const multer = require('multer');
 const { Language } = require("../models/languageModel");
 
 const languageRouter = express.Router();
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'public/uploads');
+    },
+    filename: function (req, file, cb) {
+        const fileName = file.originalname.split(' ').join('-');
+        cb(null, `${fileName}-${Date.now()}.${extension}`);
+    },
+});
+
+const uploadOptions = multer({ storage: storage });
 
 languageRouter.get(`/`, async (req, res) => {
 
@@ -16,11 +29,17 @@ languageRouter.get(`/:id`, async (req, res) => {
     res.send(languageList);
 });
 
-languageRouter.post(`/`, async (req, res) => {
+languageRouter.post(`/`, uploadOptions.single('image'), async (req, res) => {
+
+    const file = req.file;
+    if (!file) return res.status(400).send('No image in the request');
+
+    const fileName = file.filename;
+    const basePath = `${req.protocol}://${req.get('host')}/public/uploads/`;
 
     const language = new Language({
         name: req.body.name,
-        image: req.body.image,
+        image: `${basePath}${fileName}`,
         developer: req.body.developer,
         stableRelease: req.body.stableRelease,
         firstAppeared: req.body.firstAppeared,
