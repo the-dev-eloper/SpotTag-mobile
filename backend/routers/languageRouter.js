@@ -76,6 +76,10 @@ languageRouter.post(`/`, uploadOptions.single('image'), async (req, res) => {
 
 languageRouter.put('/:id', uploadOptions.single('image'), async (req, res) => {
 
+    if (!mongoose.isValidObjectId(req.params.id)) {
+        return res.status(400).send('Invalid Language Id');
+    }
+
     const language = await Language.findById(req.params.id);
     if(!language) return res.status(400).send('Invalid Language');
 
@@ -87,7 +91,7 @@ languageRouter.put('/:id', uploadOptions.single('image'), async (req, res) => {
         const basePath = `${req.protocol}://${req.get('host')}/public/uploads/`;
         imagepath = `${basePath}${fileName}`;
     } else {
-        imagepath = product.image;
+        imagepath = language.image;
     }
 
     const updatedLanguage = await Language.findByIdAndUpdate(
@@ -135,5 +139,40 @@ languageRouter.get(`/get/count`, async (req, res) => {
         languageCount: languageCount
     });
 });
+
+languageRouter.put(
+    '/gallery-images/:id',
+    uploadOptions.array('images', 10),
+    async (req, res) => {
+
+        if (!mongoose.isValidObjectId(req.params.id)) {
+            return res.status(400).send('Invalid Language Id');
+        }
+
+        const files = req.files;
+        let imagepaths = [];
+        const basePath = `${req.protocol}://${req.get('host')}/public/uploads/`;
+
+        if (files) {
+            files.map((file) => {
+                imagepaths.push(`${basePath}${file.fileName}`);
+            });
+        }
+
+        const updatedLanguage = await Language.findByIdAndUpdate(
+            req.params.id,
+            {
+                images: imagepaths,
+            },
+            { new: true }
+        );
+
+        if(!updatedLanguage) {
+            return res.status(500).send('the gallery cannot be updated!');
+        }
+
+        res.send(updatedLanguage);
+    }
+);
 
 module.exports = languageRouter;
