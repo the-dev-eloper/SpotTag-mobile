@@ -16,7 +16,8 @@ app.options('*', cors());
 // Middleware
 app.use(express.json());
 app.use(morgan('tiny'));
-// app.use(authJWT());
+app.use(authJWT());
+app.use('/public/uploads', express.static(__dirname + '/public/uploads'));
 app.use(errorHandler);
 
 // Routes

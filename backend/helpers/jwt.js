@@ -3,7 +3,7 @@ const expressJwt = require('express-jwt');
 function authJWT() {
 
     const secret = process.env.secret;
-    const api = process.env.api;
+    const api = process.env.API_URL;
 
     return expressJwt({
         secret,
@@ -11,6 +11,7 @@ function authJWT() {
         isRevoked: isRevoked
     }).unless({
         path: [
+            { url: /\/public\/uploads(.*)/ , methods: ['GET', 'OPTIONS'] },
             { url: /\/api\/v1\/languages/ , methods: ['GET', 'OPTIONS'] },
             `${api}/users/login`,
             `${api}/users/register`,
