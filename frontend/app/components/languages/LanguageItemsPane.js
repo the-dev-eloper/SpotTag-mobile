@@ -11,10 +11,12 @@ import {
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
+import axios from 'axios';
 
 var { height, width } = Dimensions.get('window');
 import navBarStyles from '../../styles/navbar';
-import data from '../../containers/data';
+
+import baseURL from '../../../assests/common/baseUrl';
 
 class LanguageItemsPane extends Component {
 
@@ -22,8 +24,37 @@ class LanguageItemsPane extends Component {
         super(props);
 
         this.state = {
-           
+           languages: [],
+           loading: false,
+           error: false
         }
+    }
+
+    componentDidMount() {
+
+        fetchData = async () => {
+
+            try {
+
+                this.setState({
+                    loading: true
+                })
+
+                const { data } = await axios.get(`${baseURL}languages`);
+
+                this.setState({
+                    loading: false,
+                    languages: data
+                })                
+            } catch (error) {
+                this.setState({
+                    error: error,
+                    loading: false
+                })
+            }
+        };
+
+        fetchData();
     }
 
     renderNavigationBar() {
@@ -64,16 +95,14 @@ class LanguageItemsPane extends Component {
     }
 
     renderList() {
-        let fList = (
+        return (
             <FlatList
                 style={{ flex:1 }}
-                data={data.languages}
+                data={this.state.languages}
                 renderItem={({ item }) => <Item item={item}/>}
                 keyExtractor={item => item.email}
             />
         );
-
-        return fList;
     }
 
     onSelected(name) {
@@ -88,9 +117,9 @@ class LanguageItemsPane extends Component {
                 <TouchableOpacity onPress={() => this.onSelected(item.name)}>
 
                     <View style={styleTab.listItem}>
-            
+
                         <Image
-                            source={item.photo}
+                            source={item.image}
                             style={styleTab.imgStyle}
                         />
 
@@ -161,9 +190,10 @@ const styleTab = StyleSheet.create({
         borderRadius:5
     },
     imgStyle: {
-        width:30,
-        height:30,
-        tintColor: "#C7C7C7",
+        backgroundColor: "#FFFFFF",
+        width: 30,
+        height: 30,
+        // tintColor: "#C7C7C7",
         borderRadius: 30
     },
 });

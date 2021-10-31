@@ -7,7 +7,8 @@ export default class SpotTag extends Component {
 
     render() {
         return (
-            <BugItemsPane />
+            // <BugItemsPane />
+            <LanguageItemsPane />
         );
     }
 }
