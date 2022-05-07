@@ -1,0 +1,131 @@
+/* CSS reset */
+div,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+li,
+ul,
+ol,
+input,
+th,
+td {
+    margin: 0;
+}
+
+/* Common */
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    background-color: #FFFFFF;
+    font-family: 'Montserrat', sans-serif;
+}
+
+html {
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased
+}
+
+a {
+    text-decoration: none !important;
+    cursor: pointer
+}
+
+input,
+button {
+    font-family: 'Montserrat', sans-serif;
+}
+
+button:focus:not(:focus-visible) {
+    box-shadow: none;
+}
+
+input:focus {
+    outline: 0;
+}
+
+/* Navbar */
+
+.stm--navbar {
+    background-color: #006CDB;
+    color: #FFFFFF;
+
+    display: flex;
+    align-items: center;
+
+    padding: 20px 24px;
+}
+
+.stm--navbar img {
+    margin-right: 12px;
+}
+
+.stm--navbar h2 {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+/* Body */
+
+.stm--body {
+    padding: 48px 24px;
+}
+
+.stm__body--header {
+    margin-bottom: 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stm__body--header h3 {
+    color: #000000;
+
+    font-size: 19px;
+    font-weight: 800;
+    letter-spacing: -0.19px;
+}
+
+.stm--flatCard {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 29px #00000029;
+    border-radius: 12px;
+
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.stm--flatCard img {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+
+    position: absolute;
+    left: 40px;
+
+    /* margin-right: 40px; */
+}
+
+.stm--flatCard h4 {
+    color: #140F26;
+
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: -0.14px;
+}
+
+
