@@ -4,7 +4,6 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv/config');
-const authJWT = require('./helpers/jwt');
 const errorHandler = require('./helpers/errorHandler');
 
 const app = express();
@@ -16,7 +15,6 @@ app.options('*', cors());
 // Middleware
 app.use(express.json());
 app.use(morgan('tiny'));
-app.use(authJWT());
 app.use('/public/uploads', express.static(__dirname + '/public/uploads'));
 app.use(errorHandler);
 
