@@ -20,10 +20,8 @@ app.use(errorHandler);
 
 // Routes
 const languageRouter = require('./routers/languageRouter');
-const userRouter = require('./routers/userRouter');
 
 app.use(`${api}/languages`, languageRouter);
-app.use(`${api}/users`, userRouter);
 
 //Database
 mongoose.connect(process.env.MONGODB_URL, {
